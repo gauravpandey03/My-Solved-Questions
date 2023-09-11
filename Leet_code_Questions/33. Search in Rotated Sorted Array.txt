@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        int index=-1;
+      auto it =  find(nums.begin(),nums.end(),target);
+
+      if(it != nums.end()){
+           index = std::distance(nums.begin(), it);
+      }
+      
+
+
+
+
+   return index;
+
+
+}
+
+
+
+
+
+
+
+};

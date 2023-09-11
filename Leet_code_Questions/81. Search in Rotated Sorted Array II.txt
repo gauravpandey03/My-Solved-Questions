@@ -1,0 +1,16 @@
+class Solution {
+public:
+    bool search(vector<int>& nums, int target) {
+      int index=-1;
+      auto it =  find(nums.begin(),nums.end(),target);
+
+      if(it != nums.end()){
+           index = std::distance(nums.begin(), it);
+      }
+      if(index==-1){
+          return false;
+      }
+      return true;
+    }
+
+};
