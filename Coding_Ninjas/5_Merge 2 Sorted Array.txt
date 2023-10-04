@@ -1,0 +1,23 @@
+#include <iostream>
+#include <set>
+using namespace std;
+
+vector < int > sortedArray(vector < int > a, vector < int > b) {
+    // Write your code here
+
+       set<int> s;
+      for (auto i=a.begin();i<a.end();i++){
+            s.insert(*i);
+
+      }
+       for (auto i=b.begin();i<b.end();i++){
+            s.insert(*i);
+
+      }
+
+      vector<int> vc(s.begin(), s.end());
+    
+    return vc;
+
+
+}
