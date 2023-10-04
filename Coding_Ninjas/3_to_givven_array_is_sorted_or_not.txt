@@ -1,0 +1,23 @@
+int isSorted(int n, vector<int> a) {
+  bool flag=true;
+    // Write your code here.
+   for (auto i=1 ;i<n;i++){
+       if (a[i-1]>a[i]){
+           flag=false;
+           break;
+       }
+
+       
+       }
+
+    if (flag==true)
+        return 1;
+
+
+
+    else{
+        return 0;
+    }
+
+
+}

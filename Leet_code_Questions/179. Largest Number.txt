@@ -1,0 +1,26 @@
+class Solution {
+public:
+    string largestNumber(vector<int>& nums) {
+        vector<string> s1;
+        for (auto i = nums.begin(); i != nums.end(); i++) {
+            s1.push_back(to_string(*i));
+        }
+
+                sort(s1.begin(), s1.end(), [](string& a, string& b) {
+            return a + b > b + a;
+        });
+
+        
+        if (s1[0] == "0") {
+            return "0";
+        }
+
+       
+        string largest = "";
+        for (string& s : s1) {
+            largest += s;
+        }
+
+        return largest;
+    }
+};
