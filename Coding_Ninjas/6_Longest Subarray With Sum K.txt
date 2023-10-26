@@ -1,0 +1,29 @@
+#include <vector>
+#include <unordered_map>
+
+int longestSubarrayWithSumK(std::vector<int> a, long long k) {
+    int n = a.size();
+    std::unordered_map<long long, int> prefixSum; 
+    long long temp_sum = 0;
+    int max_length = 0;
+
+    for (int i = 0; i < n; i++) {
+        temp_sum += a[i];
+
+        if (temp_sum == k) {
+            max_length = i + 1; 
+        }
+
+        
+        if (prefixSum.find(temp_sum - k) != prefixSum.end()) {
+            max_length = std::max(max_length, i - prefixSum[temp_sum - k]);
+        }
+
+        
+        if (prefixSum.find(temp_sum) == prefixSum.end()) {
+            prefixSum[temp_sum] = i;
+        }
+    }
+
+    return max_length;
+}
