@@ -1,0 +1,33 @@
+class Solution {
+public:
+   int ispalindrome(string sub){
+       for (int i=0 ;i<sub.length()/2; i++){
+           if(sub[i]!=sub[sub.length()-1-i]){
+               return -1;
+           }
+
+       }
+       return 1;
+   }
+
+    string longestPalindrome(string s) {
+       int n = s.length();
+       string longest;
+
+       for(int i=0;i<n;i++){
+           for(int j =n-i-1;j!=i+1;j--){
+               int res = ispalindrome(s.substr(i,j));
+               if(res==1){
+                   if(s.substr(i,j).length()>longest.length()){
+                       longest=s.substr(i,j);
+                   }
+                   
+               } 
+           }
+       }
+       
+    return longest;
+
+       
+    }
+};
