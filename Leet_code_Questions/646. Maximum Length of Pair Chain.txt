@@ -1,0 +1,27 @@
+class Solution {
+public:
+
+    static bool comparePairs(const vector<int>& a, const vector<int>& b);
+
+    int findLongestChain(vector<vector<int>>& pairs) {
+        
+        sort(pairs.begin(), pairs.end(), comparePairs);
+        
+        int currentEnd = INT_MIN;
+        int longestChain = 0;
+        
+        for (const auto& pair : pairs) {
+            if (pair[0] > currentEnd) {
+                currentEnd = pair[1];
+                longestChain++;
+            }
+        }
+        
+        return longestChain;
+    }
+};
+
+
+bool Solution::comparePairs(const vector<int>& a, const vector<int>& b) {
+    return a[1] < b[1];
+}
