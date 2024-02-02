@@ -1,0 +1,58 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    string multiplyByTwo(const string& num) {
+        string result;
+        int carry = 0;
+        for (char digit : num) {
+            int value = (digit - '0') * 2 + carry;
+            result += to_string(value % 10);
+            carry = value / 10;
+        }
+        while (carry > 0) {
+            result += to_string(carry % 10);
+            carry /= 10;
+        }
+
+        return result;
+    }
+
+    ListNode* doubleIt(ListNode* head) {
+        if (!head) {
+            return nullptr;
+        }
+
+        string s1;
+        ListNode* temp = head;
+        while (temp != nullptr) {
+            s1 += to_string(temp->val);
+            temp = temp->next;
+        }
+
+        reverse(s1.begin(), s1.end());
+
+        string result = multiplyByTwo(s1);
+
+        reverse(result.begin(), result.end());
+
+        ListNode* newHead = new ListNode(result[0] - '0');
+        ListNode* current = newHead;
+
+        for (int i = 1; i < result.length(); i++) {
+            ListNode* newNode = new ListNode(result[i] - '0');
+            current->next = newNode;
+            current = newNode;
+        }
+
+        return newHead;
+    }
+};
