@@ -1,0 +1,22 @@
+
+class Solution {
+public:
+    int numSquares(int n) {
+        vector<int> dp(n + 1, 0);
+        return rec(n, dp);
+    }
+
+    int rec(int n, vector<int>& dp) {
+        if (n < 0) return INT_MAX;
+        if (n == 0) return 0;
+        if (dp[n] > 0) return dp[n];
+
+        int minSquares = n;
+        for (int i = 1; i * i <= n; i++) {
+            minSquares = min(rec(n - (i * i), dp), minSquares);
+        }
+
+        dp[n] = minSquares + 1;
+        return minSquares + 1;
+    }
+};
