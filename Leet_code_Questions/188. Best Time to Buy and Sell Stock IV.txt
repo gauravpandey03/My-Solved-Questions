@@ -1,0 +1,31 @@
+
+
+class Solution {
+public:
+    int maxProfit(int k, vector<int>& prices) {
+        int n = prices.size();
+        if (n <= 1 || k == 0) {
+            return 0;
+        }
+        if (k >= n / 2) {
+            int maxProfit = 0;
+            for (int i = 1; i < n; ++i) {
+                if (prices[i] > prices[i - 1]) {
+                    maxProfit += prices[i] - prices[i - 1];
+                }
+            }
+            return maxProfit;
+        }
+       
+        vector<vector<int>> dp(n, vector<int>(k + 1, 0));
+        for (int trans = 1; trans <= k; ++trans) {
+            int maxDiff = -prices[0];
+            for (int day = 1; day < n; ++day) {
+                dp[day][trans] = max(dp[day - 1][trans], prices[day] + maxDiff);
+                maxDiff = max(maxDiff, dp[day][trans - 1] - prices[day]);
+            }
+        }
+
+        return dp[n - 1][k];
+    }
+};

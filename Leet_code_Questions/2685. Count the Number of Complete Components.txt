@@ -1,0 +1,53 @@
+class Solution {
+public:
+    void dfs(int node,vector<int>&temp,vector<int>graph[],vector<int>&vis,int &edges)
+    {
+        vis[node]=1;
+        edges+=graph[node].size();
+        temp.push_back(node);
+        for(auto i:graph[node])
+        {
+            if(!vis[i])
+            {
+                dfs(i,temp,graph,vis,edges);
+            }
+        }
+    }
+    int countCompleteComponents(int n, vector<vector<int>>& edges) {
+        
+        vector<int>graph[n+1];
+        vector<int>indegree(n+1);
+        for(auto i:edges)
+        {
+            int u=i[0];
+            int v=i[1];
+            graph[u].push_back(v);
+            graph[v].push_back(u);
+        }
+        int i;
+        vector<int>vis(n,0);
+        int cnt=0;
+        for(i=0;i<n;i++)
+        {
+            if(!vis[i])
+            {
+                vector<int>temp;
+                cout<<i<<endl;
+                int edges=0;
+                dfs(i,temp,graph,vis,edges);
+                 int sz=temp.size();
+                 cout<<edges<<" "<<sz<<endl;
+                if(edges%2==0)
+                {
+                    edges/=2;
+                    
+                    if(sz*(sz-1)==edges*2)
+                        cnt++;
+                }
+               
+               
+            }
+        }
+        return cnt;
+    }
+};

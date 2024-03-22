@@ -1,0 +1,44 @@
+
+class Solution {
+public:
+    bool validPath(int m, std ::vector<std::vector<int>>& edges, int source, int destination) {
+        if (m == 1) {
+            return source == destination;
+        }
+
+        if (edges.empty()) {
+            return false;
+        }
+
+     std::vector<int> list[m];
+        for (auto child : edges) {
+            int v1 = child[0];
+            int v2 = child[1];
+            list[v1].push_back(v2);
+            list[v2].push_back(v1);
+        }
+    std:: vector<bool> visted(m , false) ;
+       return dfs(list, visted, source,destination);
+        
+    }
+
+  private: 
+        bool dfs (std::vector<int>list[], std::vector<bool>& visited,int current ,int destination){
+          if(current == destination ){
+              return true;
+          }  
+          visited[current]=true;
+          for(int  child:list[current] ){
+              if(!visited[child]){
+                 if( dfs(list,visited,child,destination)){
+                  return true;
+              }
+          }
+        }
+
+          return false;
+
+        }
+
+
+};
