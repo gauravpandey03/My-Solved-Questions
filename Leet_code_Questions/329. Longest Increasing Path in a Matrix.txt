@@ -1,0 +1,84 @@
+// Time Limit Exceeded
+class Solution {
+// public:
+//     int dfs(vector<vector<int>>& matrix, int i, int j) {
+//         if (i < 0 || j < 0 || i >= matrix.size() || j >= matrix[0].size()) {
+//             return 0;
+//         }
+//         int left = 0, right = 0, up = 0, down = 0;
+//         if (i > 0 && matrix[i - 1][j] > matrix[i][j]) {
+//             left = dfs(matrix, i - 1, j);
+//         }
+//         if (i < matrix.size() - 1 && matrix[i + 1][j] > matrix[i][j]) {
+//             right = dfs(matrix, i + 1, j);
+//         }
+//         if (j > 0 && matrix[i][j - 1] > matrix[i][j]) {
+//             up = dfs(matrix, i, j - 1);
+//         }
+
+//         if (j < matrix[0].size() - 1 && matrix[i][j + 1] > matrix[i][j]) {
+//             down = dfs(matrix, i, j + 1);
+//         }
+
+//         return 1 + max({left, right, up, down});
+//     }
+
+//     int longestIncreasingPath(vector<vector<int>>& matrix) {
+//         int longestpath = 0;
+//         for (int i = 0; i < matrix.size(); i++) {
+//             for (int j = 0; j < matrix[0].size(); j++) {
+//                 int path = dfs(matrix, i, j);
+//                 longestpath = max(longestpath, path);
+//             }
+//         }
+//         return longestpath;
+//     }
+// };
+
+
+
+class Solution {
+public:
+    int dfs(vector<vector<int>>& matrix, int i, int j, vector<vector<int>>& memo) {
+        if (memo[i][j] != 0) {
+            return memo[i][j];
+        }
+
+        int left = 0, right = 0, up = 0, down = 0;
+        if (i > 0 && matrix[i - 1][j] > matrix[i][j]) {
+            left = dfs(matrix, i - 1, j, memo);
+        }
+        if (i < matrix.size() - 1 && matrix[i + 1][j] > matrix[i][j]) {
+            right = dfs(matrix, i + 1, j, memo);
+        }
+        if (j > 0 && matrix[i][j - 1] > matrix[i][j]) {
+            up = dfs(matrix, i, j - 1, memo);
+        }
+        if (j < matrix[0].size() - 1 && matrix[i][j + 1] > matrix[i][j]) {
+            down = dfs(matrix, i, j + 1, memo);
+        }
+
+        memo[i][j] = 1 + max({left, right, up, down});
+        return memo[i][j];
+    }
+
+    int longestIncreasingPath(vector<vector<int>>& matrix) {
+        if (matrix.empty() || matrix[0].empty()) {
+            return 0;
+        }
+
+        int m = matrix.size();
+        int n = matrix[0].size();
+        vector<vector<int>> memo(m, vector<int>(n, 0));
+        int longestpath = 0;
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                int path = dfs(matrix, i, j, memo);
+                longestpath = max(longestpath, path);
+            }
+        }
+        return longestpath;
+    }
+};
+
