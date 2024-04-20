@@ -1,0 +1,21 @@
+class Solution {
+public:
+    string customSortString(string order, string s) {
+        unordered_map<char, int> um;
+        for (char ch : s) {
+            um[ch]++;
+        }
+        string res;
+        for (char ch : order) {
+            if (um.find(ch) != um.end()) {
+                res += string(um[ch], ch);
+                um.erase(ch);
+            }
+        }
+        for (const auto& it : um) {
+            res += string(it.second, it.first);
+        }
+
+        return res;
+    }
+};
