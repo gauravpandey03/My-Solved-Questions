@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int minimumChairs(std::string s) {
+        int maxchairs = 0;
+        int currentchairs = 0;
+        for (char c : s) {
+            if (c == 'E') {
+                currentchairs++; 
+                maxchairs = max(maxchairs, currentchairs); 
+            } else if (c == 'L') {
+                currentchairs--; 
+                           }
+        }
+
+        return maxchairs;
+    }
+};
